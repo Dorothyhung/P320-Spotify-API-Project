@@ -1,14 +1,13 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const client_id = '54df636a716a4694a62016ca346e68a5';
-const client_secret = '0bd1cdbec71e4bdcbddd79e0e15b3e6b';
+import { client_id, client_secret } from './client_creds.js'
 
 // Search Tracks component - Search and Results
 function GetTracks(props) {
   useEffect(() => {
     if (props.query !== '') {
+      // GET tracks by search query
       const fetchTracks = async () => {
         try {
           const response = await fetch(`https://api.spotify.com/v1/search?q=${props.query}&type=track&limit=50`, {
@@ -30,7 +29,7 @@ function GetTracks(props) {
   // Navigate to audio features page on button click
   const navigate = useNavigate();
   const handleButtonClick = (trackID) => {
-    navigate(`audiofeatures/${trackID}`);
+    navigate(`audiofeatures`);
     props.setSelectedTrackID(trackID);
   }
 
@@ -77,7 +76,7 @@ function App(props) {
         const credentials = `${client_id}:${client_secret}`;
         const base64Credentials = btoa(credentials);
 
-        // Make a POST request to get access token using client_id and client_secret
+        // POST request for token from client_id and client_secret
         const response = await fetch('https://accounts.spotify.com/api/token', {
           method: 'POST',
           headers: {

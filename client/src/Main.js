@@ -31,7 +31,7 @@ const Main = () => {
             {/* <Navigation /> */}
             <Routes>
                 <Route path='/' element={<App token={token} setToken={setToken} setSelectedTrackID={setSelectedTrackID} />} />
-                <Route path='/audiofeatures/:trackId' element={<AudioFeatures token={token} trackID={selectedTrackID}/>} />
+                <Route path='/audiofeatures' element={<AudioFeatures token={token} trackID={selectedTrackID}/>} />
             </Routes>
         </div>
     );
