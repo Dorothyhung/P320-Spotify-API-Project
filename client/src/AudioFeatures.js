@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 // Get Audio Features component
 function AudioFeatures(props) {
     const trackID = props.trackID;
-    console.log(trackID)
     const [audioFeatures, setAudioFeatures] = useState(null);
     const [track, setCurrentTrack] = useState(null);
     
@@ -52,9 +51,11 @@ function AudioFeatures(props) {
           <a href='/'><button className="btn btn-secondary text-white w-5">Return to Search</button></a>
           <h1>Audio Features</h1>
           {audioFeatures && track ? (
-            <div>
-              <h2>Track: {track.name}</h2>
-              <h3>Audio Features:</h3>
+            <div className="container d-flex flex-column align-items-center justify-content-center">
+              <h2>{track.name}</h2>
+              <img src={track.album.images[0].url} width="200" height="200" alt="Album cover" />
+              <h4>{(track.artists.map((artist) => artist.name)).join(", ")}</h4>
+              <h4>{track.album.name}</h4>
               <ul>
                 <li>Acousticness: {audioFeatures.acousticness}</li>
                 <p>A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.</p>

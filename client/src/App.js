@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { client_id, client_secret } from './client_creds.js'
 
 // Search Tracks component - Search and Results
-function GetTracks(props) {
+function SearchTracks(props) {
   useEffect(() => {
     if (props.query !== '') {
       // GET tracks by search query
@@ -42,6 +42,7 @@ function GetTracks(props) {
         <table>
           <thead>
             <tr>
+              <th></th>
               <th>Name</th>
               <th>Artist</th>
               <th>Album</th>
@@ -51,8 +52,9 @@ function GetTracks(props) {
           <tbody>
             {props.tracks.map(track => (
               <tr key={track.id}>
+                <td><img src={track.album.images[0].url} width="60" height="60" alt="Album cover" /></td>
                 <td>{track.name}</td>
-                <td>{track.artists[0].name}</td>
+                <td>{(track.artists.map((artist) => artist.name)).join(", ")}</td>
                 <td>{track.album.name}</td>
                 <td><button className="btn btn-secondary text-white w-100" onClick={() => handleButtonClick(track.id)}>View audio features</button></td>
               </tr>
@@ -106,7 +108,7 @@ function App(props) {
       <form>
         <input type="search" value={searchQuery} onChange={handleChange} />
       </form><br/>
-      <GetTracks tracks={tracks} setTracks={setTracks} token={props.token} query={searchQuery} setSelectedTrackID={props.setSelectedTrackID}/>
+      <SearchTracks tracks={tracks} setTracks={setTracks} token={props.token} query={searchQuery} setSelectedTrackID={props.setSelectedTrackID}/>
     </div>
   );
 }
