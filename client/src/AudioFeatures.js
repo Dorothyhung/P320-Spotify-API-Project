@@ -1,6 +1,7 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
+import RadarDisplay from './DataDisplay';
 
 // Get Audio Features component
 function AudioFeatures(props) {
@@ -54,6 +55,14 @@ function AudioFeatures(props) {
             <div className="container d-flex flex-column align-items-center justify-content-center">
               <h2>{track.name}</h2>
               <img src={track.album.images[0].url} width="200" height="200" alt="Album cover" />
+              <RadarDisplay
+                ac={audioFeatures.acousticness}
+                da={audioFeatures.danceability}
+                en={audioFeatures.energy}
+                li={audioFeatures.liveness}
+                sp={audioFeatures.speechiness}
+                va={audioFeatures.valence}
+                />
               <h4>{(track.artists.map((artist) => artist.name)).join(", ")}</h4>
               <h4>{track.album.name}</h4>
               <ul>
