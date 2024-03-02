@@ -108,7 +108,12 @@ function App(props) {
       <form>
         <input type="search" value={searchQuery} onChange={handleChange} />
       </form><br/>
-      <SearchTracks tracks={tracks} setTracks={setTracks} token={props.token} query={searchQuery} setSelectedTrackID={props.setSelectedTrackID}/>
+      <SearchTracks 
+        tracks={tracks} 
+        setTracks={setTracks} 
+        token={props.token} 
+        query={searchQuery} 
+        setSelectedTrackID={props.setSelectedTrackID}/>
     </div>
   );
 }

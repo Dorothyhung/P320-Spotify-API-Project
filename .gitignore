@@ -2,3 +2,4 @@
 node_modules
 **/vars.js
 **/client_creds.js
+client/build
