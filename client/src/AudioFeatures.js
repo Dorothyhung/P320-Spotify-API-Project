@@ -60,11 +60,12 @@ function AudioFeatures(props) {
 
   // Return list of audio features
   return (
-    <div className="container d-flex flex-column align-items-center justify-content-center"> <br />
+    <div className="container-fluid d-flex flex-column align-items-center justify-content-center bg-primary text-white pb-5 px-5"> <br />
       <a href='/'><button className="btn btn-secondary text-white w-5">Return to Search</button></a>
+      <div className='container-fluid d-flex flex-column align-items-center justify-content-center bg-success text-white pb-5 pt-5 px-5'>
       <h1>Audio Features</h1>
       {audioFeatures && track ? (
-        <div className="container d-flex flex-column align-items-center justify-content-center">
+        <div className="container d-flex flex-column align-items-center justify-content-center bg-success  pb-5">
           <h2>{track.name}</h2>
           <img src={track.album.images[0].url} width="200" height="200" alt="Album cover" />
           <RadarDisplay
@@ -101,6 +102,7 @@ function AudioFeatures(props) {
       ) : (
         <p>Return to Search</p>
       )}
+      </div>
       <Modal show={showModal} handleClose={handleCloseModal}>
         <p>{modalContent}</p>
       </Modal>

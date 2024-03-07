@@ -8,11 +8,11 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4); /* Black with opacity */
-  }
+}
   
   .modal-content {
     position: fixed;
-    background-color: white;
+    background-color: #0d6efd;
     padding: 20px;
     border-radius: 4px;
     top: 50%;
@@ -21,6 +21,9 @@
     z-index: 1000;
     max-width: 500px;
     width: 80%;
+
+    color: white;
+
   }
   .list-item:hover {
     text-decoration: underline;
