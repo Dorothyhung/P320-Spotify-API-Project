@@ -31,9 +31,13 @@ class RadarDisplay extends React.Component {
       }
       render() {
         return (
-          <div style={{ display:'flex', justifyContent: 'flex-end', position: 'absolute', top: '70px', right: '150px'}}>
-            <div id="chart">
-              <ReactApexChart options={this.state.options} series={this.state.series} type="radar" height={350} />
+          <div style={{position: 'absolute', right: '0px', top: '0px', padding: '5%'}}>
+            <div id="chart" style={{
+            backgroundColor: 'black',
+            borderStyle: 'solid',
+            borderWidth: '2px',
+            float: 'right'}}>
+              <ReactApexChart options={this.state.options} series={this.state.series} type="radar" height={350} width={350} style={{float: 'right'}}/>
             </div>
             <div id="html-dist"></div>
           </div>

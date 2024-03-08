@@ -62,24 +62,22 @@ function AudioFeatures(props) {
   return (
     <div className="container-fluid d-flex flex-column align-items-center justify-content-center bg-primary text-white pb-5 px-5"> <br />
       <a href='/'><button className="btn btn-secondary text-white w-5">Return to Search</button></a>
-      <div className='container-fluid d-flex flex-column align-items-center justify-content-center bg-success text-white pb-5 pt-5 px-5'>
-      <h1>Audio Features</h1>
-      {audioFeatures && track ? (
-        <div className="container d-flex flex-column align-items-center justify-content-center bg-success  pb-5">
-          <h2>{track.name}</h2>
-          <img src={track.album.images[0].url} width="200" height="200" alt="Album cover" />
-          <RadarDisplay
+      <h1 style={{backgroundColor: 'black', borderStyle: 'solid', borderWidth: '2px', padding: '5px'}}>Audio Features</h1>
+      <div style={{border: '2px solid rgba(255, 255, 255, 1)', position: 'relative'}} className='container-fluid d-flex flex-column align-items-left justify-content-center bg-success text-white pb-50 pt-5 px-5'>
+      <RadarDisplay
             ac={audioFeatures.acousticness}
             da={audioFeatures.danceability}
             en={audioFeatures.energy}
             li={audioFeatures.liveness}
             sp={audioFeatures.speechiness}
-            va={audioFeatures.valence}
-          />
-          <h4>{(track.artists.map((artist) => artist.name)).join(", ")}</h4>
-          <h4>{track.album.name}</h4>
-          <ul>
-
+            va={audioFeatures.valence}/>
+      {audioFeatures && track ? (
+        <div className="container d-flex flex-column align-items-left justify-content-center bg-success  pb-5">
+          <h2>{track.name}</h2>
+          <img src={track.album.images[0].url} width="200" height="200" alt="Album cover" style={{border: '2px solid rgba(255, 255, 255, 1)'}}/>
+          <h4 style={{color: 'rgb(240, 240, 240)'}}>{(track.artists.map((artist) => artist.name)).join(", ")}</h4>
+          <h4 style={{color: 'rgb(220, 220, 220)'}}>{track.album.name}</h4>
+          <ul style={{position: 'relative', left: '-10px'}}>
 
             <li className="list-item" onClick={() => handleShowModal(`A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.`)}>Acousticness: {audioFeatures.acousticness}</li>
 

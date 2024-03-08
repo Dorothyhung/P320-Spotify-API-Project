@@ -2,3 +2,5 @@
 node_modules
 **/vars.js
 **/client_creds.js
+client/package-lock.json
+client/package.json
