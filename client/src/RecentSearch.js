@@ -7,11 +7,13 @@ function RecentSearch(props) {
     const [trackIDs, setTrackIDs] = useState(null);
     const [historyTracks, setHistoryTracks] = useState([]);
 
+    // Update tracksIDs for API call
     useEffect(() => {
         const trackIDsString = history.join(",");
         setTrackIDs(trackIDsString);
     }, [history]);
 
+    // GET tracks by track ids
     useEffect(() => {
         const getTracks = async () => {
             try {
@@ -27,12 +29,12 @@ function RecentSearch(props) {
                 console.error('Error fetching tracks:', error);
             }
         };
-
         if (trackIDs && props.token) {
             getTracks();
         }
     }, [props.token, trackIDs]);
 
+    // Update list of track ids
     const renderHistory = () => {
         const historyCount = parseInt(localStorage.getItem("historyCount") || 0);
         const tempHistory = [];
@@ -46,6 +48,7 @@ function RecentSearch(props) {
         setHistory(tempHistory);
     };
 
+    // Clear history - local storage
     const handleClearHistory = () => {
         localStorage.clear();
         setHistory([]);
@@ -53,10 +56,12 @@ function RecentSearch(props) {
         setHistoryTracks([]);
     };
 
+    // Render list of ids in history as user clicks around
     useEffect(() => {
         renderHistory();
     }, []);
 
+    // Navigate to audio features or back to search
     const navigate = useNavigate();
     const handleButtonClick = (trackID) => {
         navigate(`/audiofeatures`);
@@ -66,6 +71,7 @@ function RecentSearch(props) {
         navigate(`/search`);
     }
 
+    // Return list of tracks from local storage
     return (
         <div className="d-flex flex-column justify-content-center align-items-center pt-5 pb-5 text-white"
             style={{background: 'linear-gradient(to bottom, black, gray)', minHeight: '100vh'}}>
