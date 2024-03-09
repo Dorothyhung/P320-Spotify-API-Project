@@ -16,25 +16,25 @@ function HomePage() {
           <div className='container'>
             <h1 className="d-flex justify-content-center">
                 Welcome to&nbsp;
-                <span style={{ color: '#1DB954'}}> SpotifyAnalysis</span>
+                <span className='green'> SpotifyAnalysis</span>
             </h1><br /><br />
             <div className="d-flex flex-column align-items-center justify-content-center">
                 <h5>Ready to explore your favorite track's audio features?</h5>
                 <button onClick={handleButtonClick} 
-                className="btn search-btn btn-lg" >Search for a Track</button>
+                className="btn black-btn btn-lg" >Search for a Track</button>
             </div><br /><br />
           </div>
           
           <div className='container'>
             <div className='row justify-content-center'>
                 <div className='col-md-8'>
-                    <h5 style={{ color: '#1DB954' }}>About SpotifyAnalysis</h5>
+                    <h5 className='green'>About SpotifyAnalysis</h5>
                     <p>
                         Discover the secrets behind your favorite tracks with SpotifyAnalysis. 
                         Our app allows you to explore the fascinating world of music by providing 
                         insights into the audio features of any Spotify track.
                     </p>
-                    <h5 style={{ color: '#1DB954' }}>About Spotify Audio Features</h5>
+                    <h5 className='green'>About Spotify Audio Features</h5>
                     <p>
                         Spotify provides a range of audio features that describe various aspects of a 
                         track's musical content. These features include acousticness (how acoustic a track is), 
@@ -45,11 +45,10 @@ function HomePage() {
                     <p>
                         Explore Spotify's audio features 
                         <a href="https://developer.spotify.com/documentation/web-api/reference/get-audio-features"
-                            className="text-decoration-none" 
-                            style={{ color: '#1DB954' }}
+                            className="text-decoration-none green" 
                             target="_blank"> here.</a>
                     </p>
-                    <h5 style={{ color: '#1DB954' }}>Where the Data Comes From</h5>
+                    <h5 className='green'>Where the Data Comes From</h5>
                     <p>
                         SpotifyAnalysis connects directly to the Spotify Web API, pulling data from Spotify's 
                         expansive music database. This ensures that you have access to the most accurate and 
@@ -58,8 +57,7 @@ function HomePage() {
                     <p>
                         Explore the Spotify API
                         <a href="https://developer.spotify.com/documentation/web-api"
-                            className="text-decoration-none" 
-                            style={{ color: '#1DB954' }}
+                            className="text-decoration-none green" 
                             target="_blank"> here.</a>
                     </p>
                 </div>
