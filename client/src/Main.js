@@ -20,7 +20,7 @@ const Navigation = () => {
                 </NavLink>
             </div>
             <div className="col-6 mb-3">
-                <NavLink to='/audiofeatures'>
+                <NavLink to='/search/audiofeatures'>
                     <button className="btn btn-secondary text-white w-100">Audio Features</button>
                 </NavLink>
             </div>
@@ -38,7 +38,7 @@ const Main = () => {
             <Routes>
                 <Route path='/' element={<HomePage />}/>
                 <Route path='/search' element={<App token={token} setToken={setToken} setSelectedTrackID={setSelectedTrackID} />} />
-                <Route path='/audiofeatures' element={<AudioFeatures token={token} trackID={selectedTrackID}/>} />
+                <Route path='/search/audiofeatures' element={<AudioFeatures token={token} trackID={selectedTrackID}/>} />
             </Routes>
         </div>
     );
