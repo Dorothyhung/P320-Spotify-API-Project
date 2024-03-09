@@ -8,6 +8,7 @@ function SearchTracks(props) {
   useEffect(() => {
     if (props.query !== '') {
       // GET tracks by search query
+      console.log(props.token)
       const fetchTracks = async () => {
         try {
           const response = await fetch(`https://api.spotify.com/v1/search?q=${props.query}&type=track&limit=50`, {
@@ -29,13 +30,19 @@ function SearchTracks(props) {
   // Navigate to audio features page on button click
   const navigate = useNavigate();
   const handleButtonClick = (trackID) => {
-    navigate(`audiofeatures`);
+    navigate(`/audiofeatures`);
     props.setSelectedTrackID(trackID);
+  }
+
+  const handleHistoryButtonClick = () => {
+    navigate(`/recent`);
   }
 
   // Return table of search results filtered for tracks
   return (
     <div className="container d-flex flex-column align-items-center justify-content-center">
+      {/* <button><a href="/recent">Go to history</a></button> */}
+      <button onClick={handleHistoryButtonClick}>Go to history</button>
       {props.tracks ? (
       <div>
         <h3>Results</h3>
@@ -56,7 +63,24 @@ function SearchTracks(props) {
                 <td>{track.name}</td>
                 <td>{(track.artists.map((artist) => artist.name)).join(", ")}</td>
                 <td>{track.album.name}</td>
-                <td><button className="btn btn-secondary text-white w-100" onClick={() => handleButtonClick(track.id)}>View audio features</button></td>
+                <td><button className="btn btn-secondary text-white w-100" 
+                  onClick={() => {
+                    handleButtonClick(track.id);
+
+                    const searchQuery = track.id;
+                    let historyCount = parseInt(localStorage.getItem("historyCount") || 0);
+                    const newKey = "searchQuery" + (historyCount + 1);
+
+                    // Limit history to 20 items - remove oldest search if >20
+                    if (historyCount >= 20) {
+                        const oldestKey = "searchQuery" + (historyCount - 19);
+                        localStorage.removeItem(oldestKey);
+                    }
+                    
+                    // Update localStorage values
+                    localStorage.setItem(newKey, searchQuery);
+                    localStorage.setItem("historyCount", (Math.min(historyCount + 1, 20))); // Update the historyCount in localStorage
+                  }}>View audio features</button></td>
               </tr>
             ))}
           </tbody>
@@ -109,7 +133,12 @@ function App(props) {
       <form>
         <input type="search" value={searchQuery} onChange={handleChange} />
       </form><br/>
-      <SearchTracks tracks={tracks} setTracks={setTracks} token={props.token} query={searchQuery} setSelectedTrackID={props.setSelectedTrackID}/>
+      <SearchTracks 
+        tracks={tracks} 
+        setTracks={setTracks}
+        token={props.token}
+        query={searchQuery}
+        setSelectedTrackID={props.setSelectedTrackID}/>
       </div>
     </div>
   );
