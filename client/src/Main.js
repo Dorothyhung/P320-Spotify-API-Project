@@ -3,6 +3,7 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 
 import App from './App.js';
 import AudioFeatures from './AudioFeatures.js'
+import HomePage from './HomePage.js'
 
 const Navigation = () => {
     return (
@@ -10,6 +11,11 @@ const Navigation = () => {
         <div className="row w-50">
             <div className="col-6 mb-3">
                 <NavLink to='/'>
+                    <button className="btn btn-secondary text-white w-100">Home</button>
+                </NavLink>
+            </div>
+            <div className="col-6 mb-3">
+                <NavLink to='/search'>
                     <button className="btn btn-secondary text-white w-100">Search</button>
                 </NavLink>
             </div>
@@ -30,7 +36,8 @@ const Main = () => {
         <div>
             {/* <Navigation /> */}
             <Routes>
-                <Route path='/' element={<App token={token} setToken={setToken} setSelectedTrackID={setSelectedTrackID} />} />
+                <Route path='/' element={<HomePage />}/>
+                <Route path='/search' element={<App token={token} setToken={setToken} setSelectedTrackID={setSelectedTrackID} />} />
                 <Route path='/audiofeatures' element={<AudioFeatures token={token} trackID={selectedTrackID}/>} />
             </Routes>
         </div>

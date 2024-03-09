@@ -103,7 +103,7 @@ function App(props) {
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center bg-primary pt-5 pb-5 px-5 text-white">
-      <h1>Spotify App</h1><br />
+      <h1>SpotifyAnalysis</h1><br />
       <div className='d-flex flex-column justify-content-center align-items-center bg-success mt-5 my-5 pt-5 pb-5 px-5'>
       <h3>Search for a Track:</h3>
       <form>

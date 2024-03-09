@@ -1,3 +1,17 @@
 .App {
   /*text-align: center; */
 }
+
+.search-btn {
+  background-color: black;
+  color: white;
+}
+
+.search-btn:hover {
+  background-color: gray;
+  color: #1DB954;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
