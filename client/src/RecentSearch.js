@@ -73,7 +73,7 @@ function RecentSearch(props) {
 
     // Return list of tracks from local storage
     return (
-        <div className="d-flex flex-column justify-content-center align-items-center pt-5 pb-5 text-white"
+        <div className="d-flex flex-column justify-content-center align-items-center p-5 text-white"
             style={{background: 'linear-gradient(to bottom, black, gray)', minHeight: '100vh'}}>
             <button className="btn green-btn btn-lg" onClick={handleSearchButtonClick}>Back to Search</button><br />
             <h1 className='green'>Your Search History</h1><br />
@@ -85,7 +85,7 @@ function RecentSearch(props) {
                             <thead>
                                 <tr>
                                     <th className="col-1"></th>
-                                    <th className='col-3'>Name</th>
+                                    <th className='col-3'>Title</th>
                                     <th className='col-3'>Artist</th>
                                     <th className='col-3'>Album</th>
                                     <th className="col-2"></th>

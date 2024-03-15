@@ -27,7 +27,7 @@ function HomePage() {
           
           <div className='container'>
             <div className='row justify-content-center'>
-                <div className='col-md-8'>
+                <div className='col-md-10'>
                     <h5 className='green'>About SpotifyAnalysis</h5>
                     <p>
                         Discover the secrets behind your favorite tracks with SpotifyAnalysis. 
