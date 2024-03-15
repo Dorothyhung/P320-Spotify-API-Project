@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { client_id, client_secret } from './client_creds.js';
@@ -21,19 +22,19 @@ function TrackFilters({ applyFilters }) {
       <form onSubmit={handleSubmit}>
         <label>
           Danceability:
-          <input type="number" name="danceability" />
+          <input type="text" name="danceability" />
         </label>
         <label>
           Energy:
-          <input type="number" name="energy" />
+          <input type="text" name="energy" />
         </label>
         <label>
           Valence:
-          <input type="number" name="valence" />
+          <input type="text" name="valence" />
         </label>
         <label>
           Tempo:
-          <input type="number" name="tempo" />
+          <input type="text" name="tempo" />
         </label>
         <button type="submit" className="btn btn-primary">
           Apply Filters

@@ -1,3 +1,30 @@
 .App {
-  text-align: center;
+  /*text-align: center; */
+}
+
+.black-btn {
+  background-color: black;
+  color: white;
+}
+
+.black-btn:hover {
+  background-color: gray;
+  color: #1DB954;
+}
+
+.green-btn {
+  background-color: #1DB954;
+  color: black;
+}
+.green-btn:hover {
+  background-color: black;
+  color: #1DB954;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.green {
+  color: #1DB954;
 }

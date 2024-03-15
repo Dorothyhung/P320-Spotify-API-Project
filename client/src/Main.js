@@ -3,6 +3,8 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 
 import App from './App.js';
 import AudioFeatures from './AudioFeatures.js'
+import HomePage from './HomePage.js'
+import RecentSearch from './RecentSearch.js';
 
 const Navigation = () => {
     return (
@@ -10,11 +12,21 @@ const Navigation = () => {
         <div className="row w-50">
             <div className="col-6 mb-3">
                 <NavLink to='/'>
+                    <button className="btn btn-secondary text-white w-100">Home</button>
+                </NavLink>
+            </div>
+            <div className="col-6 mb-3">
+                <NavLink to='/search'>
                     <button className="btn btn-secondary text-white w-100">Search</button>
                 </NavLink>
             </div>
             <div className="col-6 mb-3">
-                <NavLink to='/audiofeatures'>
+                <NavLink to='/search/audiofeatures'>
+                    <button className="btn btn-secondary text-white w-100">Audio Features</button>
+                </NavLink>
+            </div>
+            <div className="col-6 mb-3">
+                <NavLink to='/recent'>
                     <button className="btn btn-secondary text-white w-100">Audio Features</button>
                 </NavLink>
             </div>
@@ -24,14 +36,23 @@ const Navigation = () => {
 }
 
 const Main = () => {
-    const [token, setToken] = useState(null); // Token created each time page is refreshed
+    const [token, setToken] = useState(null);
     const [selectedTrackID, setSelectedTrackID] = useState(null);
     return (
         <div>
             {/* <Navigation /> */}
             <Routes>
-                <Route path='/' element={<App token={token} setToken={setToken} setSelectedTrackID={setSelectedTrackID} />} />
-                <Route path='/audiofeatures' element={<AudioFeatures token={token} trackID={selectedTrackID}/>} />
+                <Route path='/' element={<HomePage />}/>
+                <Route path='/search' element={<App 
+                    token={token} 
+                    setToken={setToken} 
+                    setSelectedTrackID={setSelectedTrackID} />} />
+                <Route path='/audiofeatures' element={<AudioFeatures 
+                    token={token} 
+                    trackID={selectedTrackID}/>} />
+                <Route path='/recent' element={<RecentSearch 
+                    token={token} 
+                    setSelectedTrackID={setSelectedTrackID}/>} />
             </Routes>
         </div>
     );
