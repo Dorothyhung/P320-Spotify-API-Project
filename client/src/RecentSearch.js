@@ -98,7 +98,7 @@ function RecentSearch(props) {
                                         <td>{track.name}</td>
                                         <td>{(track.artists.map((artist) => artist.name)).join(", ")}</td>
                                         <td>{track.album.name}</td>
-                                        <td><button className="btn green-btn w-100" 
+                                        <td><button className="btn green-btn w-100"  
                                             onClick={() => handleButtonClick(track.id)}>View Audio Features</button></td>
                                     </tr>
                                 ))}

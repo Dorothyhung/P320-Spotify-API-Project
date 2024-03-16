@@ -8,7 +8,9 @@ import RecentSearch from './RecentSearch.js';
 
 const Navigation = () => {
     return (
-    <nav className="container d-flex flex-column align-items-center justify-content-center pt-5">
+    <nav className="container d-flex flex-column align-items-center justify-content-center pt-5"
+                    style={{background: 'linear-gradient(to bottom, black, gray)', minHeight: '100vh'}}>
+
         <div className="row w-50">
             <div className="col-6 mb-3">
                 <NavLink to='/'>
