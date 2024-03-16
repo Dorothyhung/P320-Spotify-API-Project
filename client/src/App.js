@@ -42,7 +42,7 @@ function SearchTracks(props) {
   return (
     <div className="container d-flex flex-column align-items-center justify-content-center">
       {/* <button><a href="/recent">Go to history</a></button> */}
-      <button onClick={handleHistoryButtonClick}>Go to history</button>
+      <button className="btn green-btn btn-lg" onClick={handleHistoryButtonClick}>Go to history</button>
       {props.tracks ? (
       <div>
         <h3>Results</h3>
@@ -63,7 +63,7 @@ function SearchTracks(props) {
                 <td>{track.name}</td>
                 <td>{(track.artists.map((artist) => artist.name)).join(", ")}</td>
                 <td>{track.album.name}</td>
-                <td><button className="btn btn-secondary text-white w-100" 
+                <td><button className="btn green-btn btn-md" 
                   onClick={() => {
                     handleButtonClick(track.id);
 
@@ -126,10 +126,12 @@ function App(props) {
   }
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center bg-primary pt-5 pb-5 px-5 text-white">
-      <h1>SpotifyAnalysis</h1><br />
-      <div className='d-flex flex-column justify-content-center align-items-center bg-success mt-5 my-5 pt-5 pb-5 px-5'>
-      <h3>Search for a Track:</h3>
+    <div className="d-flex flex-column justify-content-center align-items-center pt-5 pb-5 text-white"
+            style={{background: 'linear-gradient(to bottom, black, gray)', minHeight: '100vh'}}>
+      <h1 className='green' >SpotifyAnalysis</h1><br />
+      <div className="d-flex flex-column justify-content-center align-items-center pt-5 pb-5 text-white">
+              
+        <h3 className='green' >Search for a Track:</h3>
       <form>
         <input type="search" value={searchQuery} onChange={handleChange} />
       </form><br/>
