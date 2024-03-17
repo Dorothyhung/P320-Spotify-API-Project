@@ -175,7 +175,7 @@ function FilterTracks(props) {
         }
         };
 
-        // GET audio features by track id
+        // GET recommendations by track and audio feature filters
         const getRecommendations = async () => {
         try {
             const response = await fetch(`https://api.spotify.com/v1/recommendations?` +
@@ -225,14 +225,16 @@ function FilterTracks(props) {
     }
 
 
-  // Return list of audio features
+  // Return list of tracks that match seed genre, seed tracks, seed artist, and filters
   return (
     <div className="d-flex flex-column justify-content-center align-items-center pt-5 pb-5 text-light"
             style={{background: 'linear-gradient(to bottom, black, gray)', minHeight: '100vh'}}>
-        <a href='/search'><button className="btn green-btn btn-lg">Return to Search</button></a>
-        <div><h1 className='green'>Similar Tracks</h1></div><br />
-        <h1>{currentTrack}</h1>
-        <input value={inputGenre} onChange={handleInputChange}/>
+        <a href='/search'><button className="btn green-btn btn-lg">Return to Search</button></a><br />
+        <div><h1 className='green'>Filter By Audio Feature</h1></div><br />
+        <div><h5>Recommendations based on the seed track, genre, and audio features filters</h5></div><br />
+        <h5>Track:  {currentTrack}</h5>
+        <h5>Set Genre <input value={inputGenre} onChange={handleInputChange}/></h5><br />
+        <h5>Set Audio Features</h5>
         <Filters 
             setMinAccousticness={setMinAccousticness}
             setMaxAccousticness={setMaxAccousticness}
