@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { client_id, client_secret } from './client_creds.js'
 
+
 // Search Tracks component - Search and Results
 function SearchTracks(props) {
   useEffect(() => {
@@ -38,6 +39,11 @@ function SearchTracks(props) {
     navigate(`/recent`);
   }
 
+  const handleFilterButtonClick = (trackID) => {
+    navigate('/filter');
+    props.setSelectedTrackID(trackID);
+  }
+
   // Return table of search results filtered for tracks
   return (
     <div className="container d-flex flex-column align-items-center justify-content-center">
@@ -52,6 +58,7 @@ function SearchTracks(props) {
               <th>Name</th>
               <th>Artist</th>
               <th>Album</th>
+              <th></th>
               <th></th>
               <th></th>
             </tr>
@@ -80,7 +87,10 @@ function SearchTracks(props) {
                     // Update localStorage values
                     localStorage.setItem(newKey, searchQuery);
                     localStorage.setItem("historyCount", (Math.min(historyCount + 1, 20))); // Update the historyCount in localStorage
-                  }}>View audio features</button></td>
+                  }}>View Audio Features</button></td>
+                  <td><button className="btn green-btn" 
+                    onClick={() => { handleFilterButtonClick(track.id);  }}
+                  >Find Similar Tracks</button></td>
                   <td><a href={track.external_urls.spotify} target="_blank" className='btn black-btn'>Listen on Spotify</a></td>
               </tr>
             ))}
@@ -131,17 +141,17 @@ function App(props) {
             style={{background: 'linear-gradient(to bottom, black, gray)', minHeight: '100vh'}}>
       <h1 className='green' >SpotifyAnalysis</h1><br />
       <div className="d-flex flex-column justify-content-center align-items-center pt-5 pb-5 text-white">
-              
-        <h3 className='green' >Search for a Track:</h3>
-      <form>
-        <input type="search" value={searchQuery} onChange={handleChange} />
-      </form><br/>
-      <SearchTracks 
-        tracks={tracks} 
-        setTracks={setTracks}
-        token={props.token}
-        query={searchQuery}
-        setSelectedTrackID={props.setSelectedTrackID}/>
+        {/* Search for a track */}
+        <h3 className='green' >Search for a Track, Artist, or Album:</h3>
+        <form>
+          <input type="search" value={searchQuery} onChange={handleChange} />
+        </form><br/>
+        <SearchTracks 
+          tracks={tracks} 
+          setTracks={setTracks}
+          token={props.token}
+          query={searchQuery}
+          setSelectedTrackID={props.setSelectedTrackID}/>
       </div>
     </div>
   );
