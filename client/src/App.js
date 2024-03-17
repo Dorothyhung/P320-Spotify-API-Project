@@ -2,6 +2,8 @@ import './App.css';
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { client_id, client_secret } from './client_creds.js'
+import MultiRangeSlider from "multi-range-slider-react";
+
 
 // Search Tracks component - Search and Results
 function SearchTracks(props) {
@@ -92,6 +94,52 @@ function SearchTracks(props) {
   )
 }
 
+
+function FilterTracks(props) {
+  // const [rangeValues, setRangeValues] = useState([0, 100]);
+
+  // // Function to handle changes in slider values
+  // const handleSliderChange = (event) => {
+  //   const { value } = event.target;
+  //   const newValues = value.split(',').map(Number);
+  //   setRangeValues(newValues);
+  // };
+
+  // return (
+  // <div>
+  //   <input
+  //     type="range"
+  //     min="0"
+  //     max="100"
+  //     value={rangeValues}
+  //     onChange={handleSliderChange}
+  //     step="1"
+  //     className="custom-range"
+  //   />
+  //   <p>Min Value: {rangeValues[0]}</p>
+  //   <p>Max Value: {rangeValues[1]}</p>
+  // </div>
+  // );
+
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(1);
+  return (
+    <div>
+      <div className="multi-range-slider-container">
+        <b>Simple range slider with default values</b>
+        <hr />
+        <MultiRangeSlider
+          onInput={(e) => {
+            setMinValue(e.minValue / 100);
+            setMaxValue(e.maxValue / 100);
+          }}
+        ></MultiRangeSlider>
+
+      </div>
+    </div>
+  );
+}
+
 // Main App Component
 function App(props) {
   const [tracks, setTracks] = useState(null); // List of tracks from search
@@ -131,17 +179,19 @@ function App(props) {
             style={{background: 'linear-gradient(to bottom, black, gray)', minHeight: '100vh'}}>
       <h1 className='green' >SpotifyAnalysis</h1><br />
       <div className="d-flex flex-column justify-content-center align-items-center pt-5 pb-5 text-white">
-              
+        {/* Search for a track */}
         <h3 className='green' >Search for a Track:</h3>
-      <form>
-        <input type="search" value={searchQuery} onChange={handleChange} />
-      </form><br/>
-      <SearchTracks 
-        tracks={tracks} 
-        setTracks={setTracks}
-        token={props.token}
-        query={searchQuery}
-        setSelectedTrackID={props.setSelectedTrackID}/>
+        <form>
+          <input type="search" value={searchQuery} onChange={handleChange} />
+        </form><br/>
+        {/* Filter for a track */}
+        <FilterTracks /><br />
+        <SearchTracks 
+          tracks={tracks} 
+          setTracks={setTracks}
+          token={props.token}
+          query={searchQuery}
+          setSelectedTrackID={props.setSelectedTrackID}/>
       </div>
     </div>
   );
