@@ -2,7 +2,6 @@ import './App.css';
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { client_id, client_secret } from './client_creds.js'
-import MultiRangeSlider from "multi-range-slider-react";
 
 
 // Search Tracks component - Search and Results
@@ -40,6 +39,11 @@ function SearchTracks(props) {
     navigate(`/recent`);
   }
 
+  const handleFilterButtonClick = (trackID) => {
+    navigate('/filter');
+    props.setSelectedTrackID(trackID);
+  }
+
   // Return table of search results filtered for tracks
   return (
     <div className="container d-flex flex-column align-items-center justify-content-center">
@@ -54,6 +58,7 @@ function SearchTracks(props) {
               <th>Name</th>
               <th>Artist</th>
               <th>Album</th>
+              <th></th>
               <th></th>
               <th></th>
             </tr>
@@ -82,7 +87,10 @@ function SearchTracks(props) {
                     // Update localStorage values
                     localStorage.setItem(newKey, searchQuery);
                     localStorage.setItem("historyCount", (Math.min(historyCount + 1, 20))); // Update the historyCount in localStorage
-                  }}>View audio features</button></td>
+                  }}>View Audio Features</button></td>
+                  <td><button className="btn green-btn" 
+                    onClick={() => { handleFilterButtonClick(track.id);  }}
+                  >Find Similar Tracks</button></td>
                   <td><a href={track.external_urls.spotify} target="_blank" className='btn black-btn'>Listen on Spotify</a></td>
               </tr>
             ))}
@@ -92,52 +100,6 @@ function SearchTracks(props) {
       ) : null}
     </div>
   )
-}
-
-
-function FilterTracks(props) {
-  // const [rangeValues, setRangeValues] = useState([0, 100]);
-
-  // // Function to handle changes in slider values
-  // const handleSliderChange = (event) => {
-  //   const { value } = event.target;
-  //   const newValues = value.split(',').map(Number);
-  //   setRangeValues(newValues);
-  // };
-
-  // return (
-  // <div>
-  //   <input
-  //     type="range"
-  //     min="0"
-  //     max="100"
-  //     value={rangeValues}
-  //     onChange={handleSliderChange}
-  //     step="1"
-  //     className="custom-range"
-  //   />
-  //   <p>Min Value: {rangeValues[0]}</p>
-  //   <p>Max Value: {rangeValues[1]}</p>
-  // </div>
-  // );
-
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(1);
-  return (
-    <div>
-      <div className="multi-range-slider-container">
-        <b>Simple range slider with default values</b>
-        <hr />
-        <MultiRangeSlider
-          onInput={(e) => {
-            setMinValue(e.minValue / 100);
-            setMaxValue(e.maxValue / 100);
-          }}
-        ></MultiRangeSlider>
-
-      </div>
-    </div>
-  );
 }
 
 // Main App Component
@@ -180,12 +142,10 @@ function App(props) {
       <h1 className='green' >SpotifyAnalysis</h1><br />
       <div className="d-flex flex-column justify-content-center align-items-center pt-5 pb-5 text-white">
         {/* Search for a track */}
-        <h3 className='green' >Search for a Track:</h3>
+        <h3 className='green' >Search for a Track, Artist, or Album:</h3>
         <form>
           <input type="search" value={searchQuery} onChange={handleChange} />
         </form><br/>
-        {/* Filter for a track */}
-        <FilterTracks /><br />
         <SearchTracks 
           tracks={tracks} 
           setTracks={setTracks}

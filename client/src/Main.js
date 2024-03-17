@@ -5,6 +5,7 @@ import App from './App.js';
 import AudioFeatures from './AudioFeatures.js'
 import HomePage from './HomePage.js'
 import RecentSearch from './RecentSearch.js';
+import FilterTracks from './FilterTracks.js'
 
 const Navigation = () => {
     return (
@@ -29,7 +30,7 @@ const Navigation = () => {
             </div>
             <div className="col-6 mb-3">
                 <NavLink to='/recent'>
-                    <button className="btn btn-secondary text-white w-100">Audio Features</button>
+                    <button className="btn btn-secondary text-white w-100">Search History</button>
                 </NavLink>
             </div>
         </div>
@@ -54,6 +55,10 @@ const Main = () => {
                     trackID={selectedTrackID}/>} />
                 <Route path='/recent' element={<RecentSearch 
                     token={token} 
+                    setSelectedTrackID={setSelectedTrackID}/>} />
+                <Route path='/filter' element={<FilterTracks 
+                    token={token} 
+                    trackID={selectedTrackID}
                     setSelectedTrackID={setSelectedTrackID}/>} />
             </Routes>
         </div>
