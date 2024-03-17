@@ -21,7 +21,7 @@ class RadarDisplay extends React.Component {
               type: 'radar',
             },
             title: {
-              text: 'Title Track'
+              text: ""
             },
             xaxis: {
               categories: ['Acousticness', 'Danceability', 'Energy', 'Liveness', 'Speechiness', 'Valence']
@@ -31,9 +31,9 @@ class RadarDisplay extends React.Component {
       }
       render() {
         return (
-          <div style={{ display:'flex', justifyContent: 'flex-end', position: 'absolute', top: '70px', right: '150px'}}>
-            <div id="chart">
-              <ReactApexChart options={this.state.options} series={this.state.series} type="radar" height={350} />
+          <div>
+            <div id="chart" className="text-dark">
+              <ReactApexChart options={this.state.options} series={this.state.series} type="radar" height={500} width={450} />
             </div>
             <div id="html-dist"></div>
           </div>

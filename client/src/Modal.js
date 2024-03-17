@@ -9,9 +9,9 @@ function Modal({ show, handleClose, children }) {
 
   return (
     <div className="modal">
-      <div className="modal-content">
-        <button className = "btn green-btn btn-lg" onClick={handleClose}>Close</button>
+      <div className="modal-content text-center d-flex justify-content-center align-items-center">
         {children}
+        <button className = "btn black-btn btn-md w-50 mmt-3" onClick={handleClose}>Close</button>
       </div>
     </div>
   );

@@ -41,7 +41,6 @@ function SearchTracks(props) {
   // Return table of search results filtered for tracks
   return (
     <div className="container d-flex flex-column align-items-center justify-content-center">
-      {/* <button><a href="/recent">Go to history</a></button> */}
       <button className="btn green-btn btn-lg" onClick={handleHistoryButtonClick}>Go to history</button>
       {props.tracks ? (
       <div>
@@ -53,6 +52,7 @@ function SearchTracks(props) {
               <th>Name</th>
               <th>Artist</th>
               <th>Album</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -81,6 +81,7 @@ function SearchTracks(props) {
                     localStorage.setItem(newKey, searchQuery);
                     localStorage.setItem("historyCount", (Math.min(historyCount + 1, 20))); // Update the historyCount in localStorage
                   }}>View audio features</button></td>
+                  <td><a href={track.external_urls.spotify} target="_blank" className='btn black-btn'>Listen on Spotify</a></td>
               </tr>
             ))}
           </tbody>

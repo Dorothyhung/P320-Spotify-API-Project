@@ -85,9 +85,10 @@ function RecentSearch(props) {
                             <thead>
                                 <tr>
                                     <th className="col-1"></th>
-                                    <th className='col-3'>Title</th>
-                                    <th className='col-3'>Artist</th>
-                                    <th className='col-3'>Album</th>
+                                    <th className='col-2'>Title</th>
+                                    <th className='col-2'>Artist</th>
+                                    <th className='col-2'>Album</th>
+                                    <th className="col-2"></th>
                                     <th className="col-2"></th>
                                 </tr>
                             </thead>
@@ -98,8 +99,9 @@ function RecentSearch(props) {
                                         <td>{track.name}</td>
                                         <td>{(track.artists.map((artist) => artist.name)).join(", ")}</td>
                                         <td>{track.album.name}</td>
-                                        <td><button className="btn green-btn w-100"  
+                                        <td><button className="btn green-btn btn-sm w-100"  
                                             onClick={() => handleButtonClick(track.id)}>View Audio Features</button></td>
+                                        <td><a href={track.external_urls.spotify} target="_blank" className='btn btn-sm black-btn'>Listen on Spotify</a></td>
                                     </tr>
                                 ))}
                             </tbody>
