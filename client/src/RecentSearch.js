@@ -40,7 +40,7 @@ function RecentSearch(props) {
         setHistory(historyQueue);
     };
 
-    // Clear history - local storage
+    // Clear history - clear local storage
     const handleClearHistory = () => {
         localStorage.clear();
         setHistory([]);
@@ -53,12 +53,13 @@ function RecentSearch(props) {
         renderHistory();
     }, []);
 
-    // Navigate to audio features or back to search
+    // Navigate to audio features page
     const navigate = useNavigate();
     const handleButtonClick = (trackID) => {
         navigate(`/audiofeatures`);
         props.setSelectedTrackID(trackID);
     }
+    // Navigate back to search page
     const handleSearchButtonClick = () => {
         navigate(`/search`);
     }
