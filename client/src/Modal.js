@@ -2,11 +2,12 @@ import React from 'react';
 import './Modal.css';
 
 function Modal({ show, handleClose, children }) {
-
+  // Show nothing if show prop is false
   if (!show) {
     return null;
   }
 
+  // Display modal for audio features definitions
   return (
     <div className="modal">
       <div className="modal-content text-center d-flex justify-content-center align-items-center">

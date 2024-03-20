@@ -35,13 +35,30 @@ function SearchTracks(props) {
     props.setSelectedTrackID(trackID);
   }
 
+  // Navigate to history page
   const handleHistoryButtonClick = () => {
     navigate(`/recent`);
   }
 
+  // Navigate to filters page
   const handleFilterButtonClick = (trackID) => {
     navigate('/filter');
     props.setSelectedTrackID(trackID);
+  }
+
+  // Add to history queue using localHsitory on button click
+  const handleAddToHistory = (searchQuery) => {
+    // Load queue
+    let historyQueue = JSON.parse(localStorage.getItem("historyQueue")) || [];
+    const historyCount = historyQueue.length;
+    // Limit history to 20 tracks at a time - remove oldest search if historyCount>20
+    if (historyCount >= 20) {
+        historyQueue.shift(); // Remove oldest track
+    }
+    // Add the newest track to end of queue
+    historyQueue.push(searchQuery);
+    // Update queue
+    localStorage.setItem("historyQueue", JSON.stringify(historyQueue));
   }
 
   // Return table of search results filtered for tracks
@@ -72,21 +89,8 @@ function SearchTracks(props) {
                 <td>{track.album.name}</td>
                 <td><button className="btn green-btn btn-md" 
                   onClick={() => {
-                    handleButtonClick(track.id);
-
-                    const searchQuery = track.id;
-                    let historyCount = parseInt(localStorage.getItem("historyCount") || 0);
-                    const newKey = "searchQuery" + (historyCount + 1);
-
-                    // Limit history to 20 items - remove oldest search if >20
-                    if (historyCount >= 20) {
-                        const oldestKey = "searchQuery" + (historyCount - 19);
-                        localStorage.removeItem(oldestKey);
-                    }
-                    
-                    // Update localStorage values
-                    localStorage.setItem(newKey, searchQuery);
-                    localStorage.setItem("historyCount", (Math.min(historyCount + 1, 20))); // Update the historyCount in localStorage
+                      handleButtonClick(track.id);
+                      handleAddToHistory(track.id);
                   }}>View Audio Features</button></td>
                   <td><button className="btn green-btn" 
                     onClick={() => { handleFilterButtonClick(track.id);  }}
@@ -107,6 +111,7 @@ function App(props) {
   const [tracks, setTracks] = useState(null); // List of tracks from search
   const [searchQuery, setSearchQuery] = useState(""); // Search query from user
 
+  // Get access token to be used in other API calls
   useEffect(() => {
     const getToken = async () => {
       try {
@@ -141,7 +146,7 @@ function App(props) {
             style={{background: 'linear-gradient(to bottom, black, gray)', minHeight: '100vh'}}>
       <h1 className='green' >SpotifyAnalysis</h1><br />
       <div className="d-flex flex-column justify-content-center align-items-center pt-5 pb-5 text-white">
-        {/* Search for a track */}
+        {/* Search for a track, artist, album */}
         <h3 className='green' >Search for a Track, Artist, or Album:</h3>
         <form>
           <input type="search" value={searchQuery} onChange={handleChange} />

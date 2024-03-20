@@ -3,9 +3,9 @@ import React, {useState, useEffect} from 'react';
 import ReactApexChart from 'react-apexcharts';
 
 // Library used: https://github.com/apexcharts/react-apexcharts
-  // npm install react-apexcharts apexcharts
 // Code adapted from here: https://apexcharts.com/react-chart-demos/radar-charts/basic/
 
+// DataDisplay component which handles Radar chart
 class RadarDisplay extends React.Component {
     constructor(props) {
         super(props);
@@ -39,7 +39,5 @@ class RadarDisplay extends React.Component {
           </div>
         );
       }
-    }
-//const domContainer = document.querySelector('#app');
-//ReactDOM.render(React.createElement(ApexChart), domContainer);
+}
 export default RadarDisplay;

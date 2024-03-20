@@ -7,55 +7,29 @@ import HomePage from './HomePage.js'
 import RecentSearch from './RecentSearch.js';
 import FilterTracks from './FilterTracks.js'
 
-const Navigation = () => {
-    return (
-    <nav className="container d-flex flex-column align-items-center justify-content-center pt-5"
-                    style={{background: 'linear-gradient(to bottom, black, gray)', minHeight: '100vh'}}>
-
-        <div className="row w-50">
-            <div className="col-6 mb-3">
-                <NavLink to='/'>
-                    <button className="btn btn-secondary text-white w-100">Home</button>
-                </NavLink>
-            </div>
-            <div className="col-6 mb-3">
-                <NavLink to='/search'>
-                    <button className="btn btn-secondary text-white w-100">Search</button>
-                </NavLink>
-            </div>
-            <div className="col-6 mb-3">
-                <NavLink to='/search/audiofeatures'>
-                    <button className="btn btn-secondary text-white w-100">Audio Features</button>
-                </NavLink>
-            </div>
-            <div className="col-6 mb-3">
-                <NavLink to='/recent'>
-                    <button className="btn btn-secondary text-white w-100">Search History</button>
-                </NavLink>
-            </div>
-        </div>
-    </nav>
-    )
-}
-
 const Main = () => {
     const [token, setToken] = useState(null);
     const [selectedTrackID, setSelectedTrackID] = useState(null);
     return (
         <div>
-            {/* <Navigation /> */}
+            {/* Routes */}
             <Routes>
+                {/* Homepage */}
                 <Route path='/' element={<HomePage />}/>
+                {/* Main Search Page */}
                 <Route path='/search' element={<App 
                     token={token} 
                     setToken={setToken} 
                     setSelectedTrackID={setSelectedTrackID} />} />
+                {/* Audio Features Page */}
                 <Route path='/audiofeatures' element={<AudioFeatures 
                     token={token} 
                     trackID={selectedTrackID}/>} />
+                {/* History Page */}
                 <Route path='/recent' element={<RecentSearch 
                     token={token} 
                     setSelectedTrackID={setSelectedTrackID}/>} />
+                {/* View Similar Tracks / Filters Page */}
                 <Route path='/filter' element={<FilterTracks 
                     token={token} 
                     trackID={selectedTrackID}

@@ -6,11 +6,11 @@ import Modal from './Modal';
 
 
 function Filters(props) {
-
-
+    // All sliders for user to set min and max audio feature values
     return (
-        <div className="container text-light">
-          <div className="row">
+        <div className="container d-flex justify-content-center align-items-center text-light">
+          <div className="row w-60">
+            {/* Accousticness */}
             <div className="col-md-4">
                 <span className='d-flex justify-content-between align-items-center'>
                     <b>Acousticness</b>
@@ -27,6 +27,7 @@ function Filters(props) {
                     }}
                 />
             </div>
+            {/* Danceability */}
             <div className="col-md-4">
                 <span className='d-flex justify-content-between align-items-center'>
                     <b>Danceability</b>
@@ -43,6 +44,7 @@ function Filters(props) {
                     }}
                 />
             </div>
+            {/* Energy */}
             <div className="col-md-4">
                 <span className='d-flex justify-content-between align-items-center'>
                     <b>Energy</b>
@@ -59,6 +61,7 @@ function Filters(props) {
                     }}
                 />
             </div>
+            {/* Liveness */}
             <div className="col-md-4">
                 <span className='d-flex justify-content-between align-items-center'>
                     <b>Liveness</b>
@@ -75,6 +78,7 @@ function Filters(props) {
                     }}
                 />
             </div>
+            {/* Speechiness */}
             <div className="col-md-4">
                 <span className='d-flex justify-content-between align-items-center'>
                     <b>Speechiness</b>
@@ -91,6 +95,7 @@ function Filters(props) {
                     }}
                 />
             </div>
+            {/* Valence */}
             <div className="col-md-4">
                 <span className='d-flex justify-content-between align-items-center'>
                     <b>Valence</b>
@@ -137,7 +142,7 @@ function FilterTracks(props) {
     const [minValence, setMinValence] = useState(0.25);
     const [maxValence, setMaxValence] = useState(0.75);
 
-    // Modal
+    // Modal - show and close functions
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState('');
     const handleShowModal = (content) => {
@@ -175,7 +180,7 @@ function FilterTracks(props) {
         }
         };
 
-        // GET recommendations by track and audio feature filters
+        // GET recommendations by track and audio feature filters (set by user)
         const getRecommendations = async () => {
         try {
             const response = await fetch(`https://api.spotify.com/v1/recommendations?` +
@@ -217,6 +222,7 @@ function FilterTracks(props) {
         minSpeechiness, maxSpeechiness,
         minValence, maxValence]);
     
+    // Set seed genre based on user input
     const handleInputChange = (e) => {
         setInputGenre(e.target.value);
     };
@@ -224,6 +230,20 @@ function FilterTracks(props) {
         setSeedGenre(inputGenre)
     }
 
+    // Add to history queue using localHsitory on button click
+    const handleAddToHistory = (searchQuery) => {
+        // Load queue
+        let historyQueue = JSON.parse(localStorage.getItem("historyQueue")) || [];
+        const historyCount = historyQueue.length;
+        // Limit history to 20 tracks at a time - remove oldest search if historyCount>20
+        if (historyCount >= 20) {
+            historyQueue.shift(); // Remove oldest track
+        }
+        // Add the newest track to end of queue
+        historyQueue.push(searchQuery);
+        // Update queue
+        localStorage.setItem("historyQueue", JSON.stringify(historyQueue));
+      }
 
   // Return list of tracks that match seed genre, seed tracks, seed artist, and filters
   return (
@@ -235,7 +255,7 @@ function FilterTracks(props) {
         <h5>Track:  {currentTrack}</h5>
         <h5>Set Genre <input value={inputGenre} onChange={handleInputChange}/></h5><br />
         <h5>Set Audio Features</h5>
-        <Filters 
+        <Filters
             setMinAccousticness={setMinAccousticness}
             setMaxAccousticness={setMaxAccousticness}
             setMinDanceability={setMinDanceability}
@@ -281,20 +301,7 @@ function FilterTracks(props) {
                         <td><button className="btn green-btn btn-md" 
                         onClick={() => {
                             handleClickAudioFeatures(track.id);
-
-                            const searchQuery = track.id;
-                            let historyCount = parseInt(localStorage.getItem("historyCount") || 0);
-                            const newKey = "searchQuery" + (historyCount + 1);
-
-                            // Limit history to 20 items - remove oldest search if >20
-                            if (historyCount >= 20) {
-                                const oldestKey = "searchQuery" + (historyCount - 19);
-                                localStorage.removeItem(oldestKey);
-                            }
-                            
-                            // Update localStorage values
-                            localStorage.setItem(newKey, searchQuery);
-                            localStorage.setItem("historyCount", (Math.min(historyCount + 1, 20))); // Update the historyCount in localStorage
+                            handleAddToHistory(track.id)
                         }}>View Audio Features</button></td>
                         <td><a href={track.external_urls.spotify} target="_blank" className='btn black-btn'>Listen on Spotify</a></td>
                     </tr>
@@ -313,7 +320,6 @@ function FilterTracks(props) {
             new or obscure there might not be enough data to generate a list of tracks..</p>}
         </div>
         
-    
       <Modal show={showModal} handleClose={handleCloseModal}>
         <p>{modalContent}</p>
       </Modal>

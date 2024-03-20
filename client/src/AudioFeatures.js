@@ -12,7 +12,7 @@ function AudioFeatures(props) {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState('');
 
-  // Modal
+  // Modal - show and close
   const handleShowModal = (content) => {
     setModalContent(content);
     setShowModal(true);
