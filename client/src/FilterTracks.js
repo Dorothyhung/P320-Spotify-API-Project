@@ -9,8 +9,8 @@ function Filters(props) {
 
 
     return (
-        <div className="container text-light">
-          <div className="row">
+        <div className="container d-flex justify-content-center align-items-center text-light">
+          <div className="row w-60">
             <div className="col-md-4">
                 <span className='d-flex justify-content-between align-items-center'>
                     <b>Acousticness</b>
@@ -235,7 +235,7 @@ function FilterTracks(props) {
         <h5>Track:  {currentTrack}</h5>
         <h5>Set Genre <input value={inputGenre} onChange={handleInputChange}/></h5><br />
         <h5>Set Audio Features</h5>
-        <Filters 
+        <Filters
             setMinAccousticness={setMinAccousticness}
             setMaxAccousticness={setMaxAccousticness}
             setMinDanceability={setMinDanceability}

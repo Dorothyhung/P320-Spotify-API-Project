@@ -44,6 +44,19 @@ function SearchTracks(props) {
     props.setSelectedTrackID(trackID);
   }
 
+  const handleAddToHistory = (searchQuery) => {
+    let historyQueue = JSON.parse(localStorage.getItem("historyQueue")) || [];
+    const historyCount = historyQueue.length;
+    // Limit history to 20 items - remove oldest search if historyCount>20
+    if (historyCount >= 20) {
+        historyQueue.shift(); // Remove the oldest item
+    }
+    // Add the new search query to the end of the queue
+    historyQueue.push(searchQuery);
+    // Update localStorage values
+    localStorage.setItem("historyQueue", JSON.stringify(historyQueue));
+  }
+
   // Return table of search results filtered for tracks
   return (
     <div className="container d-flex flex-column align-items-center justify-content-center">
@@ -72,21 +85,8 @@ function SearchTracks(props) {
                 <td>{track.album.name}</td>
                 <td><button className="btn green-btn btn-md" 
                   onClick={() => {
-                    handleButtonClick(track.id);
-
-                    const searchQuery = track.id;
-                    let historyCount = parseInt(localStorage.getItem("historyCount") || 0);
-                    const newKey = "searchQuery" + (historyCount + 1);
-
-                    // Limit history to 20 items - remove oldest search if >20
-                    if (historyCount >= 20) {
-                        const oldestKey = "searchQuery" + (historyCount - 19);
-                        localStorage.removeItem(oldestKey);
-                    }
-                    
-                    // Update localStorage values
-                    localStorage.setItem(newKey, searchQuery);
-                    localStorage.setItem("historyCount", (Math.min(historyCount + 1, 20))); // Update the historyCount in localStorage
+                      handleButtonClick(track.id);
+                      handleAddToHistory(track.id)
                   }}>View Audio Features</button></td>
                   <td><button className="btn green-btn" 
                     onClick={() => { handleFilterButtonClick(track.id);  }}

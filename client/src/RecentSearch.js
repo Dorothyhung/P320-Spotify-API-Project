@@ -36,16 +36,8 @@ function RecentSearch(props) {
 
     // Update list of track ids
     const renderHistory = () => {
-        const historyCount = parseInt(localStorage.getItem("historyCount") || 0);
-        const tempHistory = [];
-        for (let i = 1; i <= Math.min(historyCount, 20); i++) {
-            const key = "searchQuery" + i;
-            const searchQuery = localStorage.getItem(key);
-            if (searchQuery) {
-                tempHistory.push(searchQuery);
-            }
-        }
-        setHistory(tempHistory);
+        const historyQueue = JSON.parse(localStorage.getItem("historyQueue")).slice().reverse() || [];
+        setHistory(historyQueue);
     };
 
     // Clear history - local storage
