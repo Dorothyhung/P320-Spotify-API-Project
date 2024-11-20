@@ -3,7 +3,7 @@ Our app allows you to explore the world of music by providing insights into the 
 
 <div align="center">
   <h4>
-    <a href="https://spotify-api-project-five.vercel.app/">Explore the App</a></h4>
+    <a href="https://spotifyaudioanalysis.com">Explore the App</a></h4>
   <p align="center">
     <a href="https://github.com/users/MattNusbaum/projects/4">Project Board</a>
     ·
