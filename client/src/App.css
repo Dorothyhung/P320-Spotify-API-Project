@@ -2,6 +2,26 @@
   /*text-align: center; */
 }
 
+/* Default: Hide mobile and show desktop */
+.mobile-div {
+  display: none;
+}
+
+.desktop-div {
+  display: block;
+}
+
+/* For screens smaller than 768px (mobile and tablet) */
+@media (max-width: 300px) {
+  .mobile-div {
+    display: block;
+  }
+
+  .desktop-div {
+    display: none;
+  }
+}
+
 .black-btn {
   background-color: black;
   color: white;

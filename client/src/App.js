@@ -2,10 +2,14 @@ import './App.css';
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { client_id, client_secret } from './client_creds.js'
+import MobileTrackCard from './MobileTrackCard';
 
 
 // Search Tracks component - Search and Results
 function SearchTracks(props) {
+  const [showMobileCard, setShowMobileCard] = useState(false);
+  const [selectedTrack, setSelectedTrack] = useState();
+
   useEffect(() => {
     if (props.query !== '') {
       // GET tracks by search query
@@ -27,6 +31,15 @@ function SearchTracks(props) {
       fetchTracks();
     }
   }, [props.query, props.token]);
+
+  // MobileTrackCard - show and close
+  const handleShowMobileCard = (track) => {
+    setSelectedTrack(track);
+    setShowMobileCard(true);
+  };
+  const handleCloseMobileCard = () => {
+    setShowMobileCard(false);
+  };
 
   // Navigate to audio features page on button click
   const navigate = useNavigate();
@@ -63,7 +76,48 @@ function SearchTracks(props) {
 
   // Return table of search results filtered for tracks
   return (
-    <div className="container d-flex flex-column align-items-center justify-content-center">
+    <div>
+    {/* Displays on mobile */}
+    <div className="d-block d-md-none p-5">
+    {props.tracks ? (
+      <div>
+        <h3>Results</h3>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Artist</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.tracks.map(track => (
+              <tr key={track.id}>
+                <td><img src={track.album.images[0].url} className="p-2" width="60" height="60" alt="Album cover" /></td>
+                <td>{track.name}</td>
+                <td>{(track.artists.map((artist) => artist.name)).join(", ")}</td>
+                <td>
+                  <button className='black-btn'
+                      onClick={() => handleShowMobileCard(track)}                    
+                  >Show</button>
+                  <MobileTrackCard show={showMobileCard} 
+                    handleClose={handleCloseMobileCard} 
+                    track={selectedTrack}
+                    handleButtonClick={handleButtonClick}
+                    handleAddToHistory={handleAddToHistory}
+                    handleFilterButtonClick={handleFilterButtonClick}/>
+                </td>
+                
+               </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      ) : null}
+    </div>
+    {/* Displays on desktop */}
+    <div className="d-none d-md-block container d-flex flex-column align-items-center justify-content-center">
       <button className="btn green-btn btn-lg" onClick={handleHistoryButtonClick}>Go to history</button>
       {props.tracks ? (
       <div>
@@ -83,7 +137,7 @@ function SearchTracks(props) {
           <tbody>
             {props.tracks.map(track => (
               <tr key={track.id}>
-                <td><img src={track.album.images[0].url} width="60" height="60" alt="Album cover" /></td>
+                <td><img src={track.album.images[0].url} className="p-2" width="60" height="60" alt="Album cover" /></td>
                 <td>{track.name}</td>
                 <td>{(track.artists.map((artist) => artist.name)).join(", ")}</td>
                 <td>{track.album.name}</td>
@@ -102,6 +156,7 @@ function SearchTracks(props) {
         </table>
       </div>
       ) : null}
+    </div>
     </div>
   )
 }
